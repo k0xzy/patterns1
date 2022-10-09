@@ -4,15 +4,17 @@ stack: jdk 11  # версия JDK
 
 branches:
   only:
-
-    - main # ветка git
+    - main  # ветка git
 
 build: off  # будем использовать свой скрипт сборки
 
 install:
   # запускаем SUT (& означает, что в фоновом режиме - не блокируем терминал для запуска тестов)
   - java -jar ./artifacts/app-card-delivery.jar &
+  - chmod +x gradlew
+#  - chmod 755 chromedriver
+
 
 build_script:
-  - chmod +x gradlew
-  - ./gradlew test --info -Dselenide.headless=true  # запускаем тест, флаг --info позволяет выводить больше информации
+  #  - ./gradlew test --info  # запускаем тест, флаг --info позволяет выводить больше информации
+  - ./gradlew test -Dselenide.headless=true --info
